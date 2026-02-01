@@ -42,10 +42,13 @@ We use a **stitched** small-VLM setup (aligned with the paper’s Gemma 270M + S
 - **Stage 1 (alignment)**: Train only the Projector on VQA/image-caption data (e.g. LLaVA-Instruct or The Cauldron VQAv2); SigLIP and Gemma are frozen.
 - **Stage 2 (robot VF)**: Load the Stage-1 projector; train Projector + Value head + optional **LoRA** on Gemma, on robot data with 201-bin labels. Data split: **8 : 1 : 1** (train / val / test) by episode.
 
-See figures in the repo:
+**Current stitched VF (SigLIP + Projector + Gemma 270M + Value head):**
 
-- `architecture_current_stitched.png` — Stitched SigLIP + Projector + Gemma 270M + Value head.
-- `architecture_prev_4b_vla.png` — Previous 4B VLA-based VF (for comparison).
+![Architecture: Stitched VF](architecture_current_stitched.png)
+
+**Previous 4B VLA-based VF (for comparison):**
+
+![Architecture: Previous 4B VLA VF](architecture_prev_4b_vla.png)
 
 ### Repository structure
 
@@ -141,6 +144,10 @@ On an internal robot dataset (not included), with 8:1:1 split and best checkpoin
 
 Random guess baseline: Top-1 ≈ 1/201 ≈ 0.5%, so the stitched VF clearly learns above chance. For more detail and epoch-by-epoch validation curves, see **RESULTS.md** (no internal paths or raw data).
 
+**Example: value over time (test episode):**
+
+![Value function visualization](value_function_visualization.png)
+
 ### References and acknowledgments
 
 - **Pi (π) 0.6** is **closed source** (the original is not open). RECAP / Advantage Conditioning: value functions for filtering high-advantage data and conditioning the policy.
@@ -193,10 +200,13 @@ This project is shared for reference and learning. Base components (SigLIP, Gemm
 - **阶段 1（对齐）**：仅训练 Projector，使用 VQA/图文描述数据（如 LLaVA-Instruct 或 The Cauldron VQAv2）；SigLIP 与 Gemma 冻结。
 - **阶段 2（机器人 VF）**：加载阶段 1 的 Projector，在机器人数据上训练 Projector + Value head + 可选 **LoRA**，标签为 201-bin。数据按 episode **8 : 1 : 1**（训练 / 验证 / 测试）划分。
 
-仓库中的示意图：
+**当前缝合式 VF（SigLIP + Projector + Gemma 270M + Value head）：**
 
-- `architecture_current_stitched.png` — 缝合式 SigLIP + Projector + Gemma 270M + Value head。
-- `architecture_prev_4b_vla.png` — 此前 4B VLA 版 VF（对比用）。
+![架构：缝合式 VF](architecture_current_stitched.png)
+
+**此前 4B VLA 版 VF（对比用）：**
+
+![架构：此前 4B VLA VF](architecture_prev_4b_vla.png)
 
 ### 仓库结构
 
@@ -291,6 +301,10 @@ python eval_test.py \
 - **Test Top-1**：约 4.1%；**Test Top-5**：约 19.2%。
 
 随机猜测基线 Top-1 ≈ 1/201 ≈ 0.5%，缝合式 VF 明显优于随机。更详细的逐轮验证曲线见 **RESULTS.md**（无内部路径或原始数据）。
+
+**示例：价值随时间变化（测试 episode）：**
+
+![价值函数可视化](value_function_visualization.png)
 
 ### 参考文献与致谢
 
