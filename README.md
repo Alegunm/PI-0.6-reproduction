@@ -45,12 +45,12 @@ See figures in the repo:
 - `architecture_current_stitched.png` — Stitched SigLIP + Projector + Gemma 270M + Value head.
 - `architecture_prev_4b_vla.png` — Previous 4B VLA-based VF (for comparison).
 
-### Repository structure (what you can show)
+### Repository structure
 
 ```
 value_function_stitched/
 ├── README.md                    # This file
-├── FILE_MANIFEST.md             # What to publish / keep private
+├── FILE_MANIFEST.md             # List of repository contents
 ├── model_stitched.py            # Stitched VF model (SigLIP + Projector + Gemma + Value head)
 ├── dataset_alignment.py         # Stage 1: VQA / image-caption dataloader
 ├── dataset_robot.py             # Stage 2: Robot parquet + video dataloader (LeRobot-style)
@@ -60,34 +60,34 @@ value_function_stitched/
 ├── eval_test.py                # Test-set evaluation (loss, Top-1, Top-5)
 ├── visualize_value_function.py # Value-over-time visualization (e.g. paper-style curves)
 ├── draw_architectures.py       # Script to draw architecture diagrams
-├── start_train_tmux.sh         # Example: run stage 2 in tmux (replace paths before use)
+├── start_train_tmux.sh         # Example: run stage 2 in tmux (paths are placeholders)
 ├── architecture_current_stitched.png
 ├── architecture_prev_4b_vla.png
-├── value_function_visualization.png   # Example value curve (optional to commit)
+├── value_function_visualization.png   # Example value curve (optional)
 ├── TRAINING.md                 # Training guide (8:1:1 split, tmux, GPU tips)
-└── RESULTS.md                  # Validation/test metrics (no internal paths)
+└── RESULTS.md                  # Validation/test metrics
 ```
 
-**Not included in the repo (do not commit):**
+**Not included in this repository:**
 
-- Robot or real-world **datasets** (videos, parquet, raw logs). Only *scripts* and *data loaders* are public; data paths in docs/scripts are placeholders.
-- Large **checkpoints** (e.g. `outputs/`, `*.pt`, `*.safetensors`). You can document the layout and add a small example if needed.
-- **Logs** that contain internal paths or sensitive info.
+- Robot or real-world **datasets** (videos, parquet, raw logs). Only code and data loaders are provided; paths in docs/scripts are placeholders.
+- Large **checkpoints** (e.g. `outputs/`, `*.pt`, `*.safetensors`). See FILE_MANIFEST for details.
+- **Logs** with internal paths or sensitive info.
 
-See **FILE_MANIFEST.md** for a precise list of what to publish vs keep private.
+See **FILE_MANIFEST.md** for the full list of contents.
 
-### Data (placeholder; your data stays local)
+### Data
 
 Training and evaluation expect **LeRobot-style** data:
 
 - **Parquet**: Episodes with frame indices, value labels (raw float from NTTG), task text, video keys.
 - **Videos**: Frames referenced by the parquet (paths are configured via `--parquet_dir` and `--video_root`).
 
-Value labels are assumed to be precomputed (e.g. by a separate `process_data` pipeline) with NTTG and optionally normalized to `[-1, 0]`; the dataloader maps them to 201-bin indices. **This repo does not include any real robot or real-world data**; only the data *format* and *loading code* are described.
+Value labels are assumed to be precomputed (e.g. by a separate `process_data` pipeline) with NTTG and optionally normalized to `[-1, 0]`; the dataloader maps them to 201-bin indices. **This repository does not include any dataset**; only the data *format* and *loading code* are provided.
 
-### Quick start (with your own data)
+### Quick start
 
-**Environment:** Python 3.10+, PyTorch, Hugging Face `transformers`, `datasets`, and dependencies for SigLIP/Gemma (see your local env). Install and use a venv/conda as usual.
+**Environment:** Python 3.10+, PyTorch, Hugging Face `transformers`, `datasets`, and dependencies for SigLIP/Gemma. Use a venv or conda as usual.
 
 **1. Stage 1 — Alignment (VQA)**
 
@@ -99,7 +99,7 @@ python train.py --stage 1 \
 
 **2. Stage 2 — Robot value function**
 
-Use placeholder paths; replace with your own parquet and video root:
+Replace the placeholder paths with your parquet directory and video root:
 
 ```bash
 python train.py --stage 2 \
@@ -112,7 +112,7 @@ python train.py --stage 2 \
 
 **3. Run in tmux (recommended)**
 
-Edit `start_train_tmux.sh`: set `CUDA_VISIBLE_DEVICES`, `parquet_dir`, `video_root`, then:
+Edit `start_train_tmux.sh` to set `CUDA_VISIBLE_DEVICES`, `parquet_dir`, and `video_root`, then:
 
 ```bash
 chmod +x start_train_tmux.sh && ./start_train_tmux.sh
@@ -149,7 +149,7 @@ This project is a **reproduction** of the value-function part of the pipeline; t
 
 ### License
 
-Use and license as appropriate for your institution (e.g. research-only, non-commercial). Check model licenses for SigLIP and Gemma when redistributing weights.
+License terms follow the base models (SigLIP, Gemma) and your institution’s policy (e.g. research-only, non-commercial). Check model licenses when redistributing weights.
 
 ---
 
@@ -194,12 +194,12 @@ Use and license as appropriate for your institution (e.g. research-only, non-com
 - `architecture_current_stitched.png` — 缝合式 SigLIP + Projector + Gemma 270M + Value head。
 - `architecture_prev_4b_vla.png` — 此前 4B VLA 版 VF（对比用）。
 
-### 仓库结构（可展示部分）
+### 仓库结构
 
 ```
 value_function_stitched/
 ├── README.md                    # 本文件（中英双语）
-├── FILE_MANIFEST.md             # 可公开 / 需保密文件清单
+├── FILE_MANIFEST.md             # 仓库内容清单
 ├── model_stitched.py            # 缝合式 VF 模型定义
 ├── dataset_alignment.py        # 阶段 1：VQA / 图文 dataloader
 ├── dataset_robot.py             # 阶段 2：机器人 parquet + 视频 dataloader（LeRobot 格式）
@@ -209,34 +209,34 @@ value_function_stitched/
 ├── eval_test.py                 # 测试集评估（loss、Top-1、Top-5）
 ├── visualize_value_function.py  # 价值随时间可视化（如论文风格曲线）
 ├── draw_architectures.py        # 架构图绘制脚本
-├── start_train_tmux.sh          # 示例：在 tmux 中跑阶段 2（使用前请替换路径）
+├── start_train_tmux.sh          # 示例：在 tmux 中跑阶段 2（路径为占位）
 ├── architecture_current_stitched.png
 ├── architecture_prev_4b_vla.png
-├── value_function_visualization.png   # 示例价值曲线（可选提交）
+├── value_function_visualization.png   # 示例价值曲线（可选）
 ├── TRAINING.md                  # 训练说明（8:1:1 划分、tmux、GPU 建议）
-└── RESULTS.md                   # 验证/测试指标（无内部路径）
+└── RESULTS.md                   # 验证/测试指标
 ```
 
-**不随仓库提供（请勿提交）：**
+**不随本仓库提供：**
 
-- 机器人或真实场景 **数据集**（视频、parquet、原始日志）。仅脚本与数据加载代码公开；文档/脚本中的路径均为占位。
-- 大型 **检查点**（如 `outputs/`、`*.pt`、`*.safetensors`）。可文档化目录结构，或按需提供小示例。
+- 机器人或真实场景 **数据集**（视频、parquet、原始日志）。仅提供代码与数据加载逻辑；文档/脚本中的路径均为占位。
+- 大型 **检查点**（如 `outputs/`、`*.pt`、`*.safetensors`）。详见 FILE_MANIFEST。
 - 含内部路径或敏感信息的 **日志**。
 
-详见 **FILE_MANIFEST.md** 中的可公开/保密清单。
+详见 **FILE_MANIFEST.md** 中的完整内容列表。
 
-### 数据（占位说明；数据保留本地）
+### 数据
 
 训练与评估需要 **LeRobot 风格** 数据：
 
 - **Parquet**：episode、帧索引、价值标签（NTTG 原始浮点）、任务文本、视频 key。
 - **视频**：parquet 中引用的帧，路径通过 `--parquet_dir` 与 `--video_root` 配置。
 
-价值标签需预先用 NTTG 算好（可由单独的 `process_data` 流程生成），并可选归一化到 `[-1, 0]`；dataloader 会映射到 201-bin 索引。**本仓库不包含任何真实机器人或真实场景数据**，仅描述数据格式与加载代码。
+价值标签需预先用 NTTG 算好（可由单独的 `process_data` 流程生成），并可选归一化到 `[-1, 0]`；dataloader 会映射到 201-bin 索引。**本仓库不包含任何数据集**，仅提供数据格式说明与加载代码。
 
-### 快速开始（使用自有数据）
+### 快速开始
 
-**环境**：Python 3.10+、PyTorch、Hugging Face `transformers` / `datasets`，以及 SigLIP/Gemma 所需依赖（见本地环境）。建议使用 venv/conda。
+**环境**：Python 3.10+、PyTorch、Hugging Face `transformers` / `datasets`，以及 SigLIP/Gemma 所需依赖。建议使用 venv 或 conda。
 
 **1. 阶段 1 — 对齐（VQA）**
 
@@ -248,7 +248,7 @@ python train.py --stage 1 \
 
 **2. 阶段 2 — 机器人价值函数**
 
-将占位路径替换为你的 parquet 与视频根目录：
+将占位路径替换为自己的 parquet 目录与视频根目录：
 
 ```bash
 python train.py --stage 2 \
@@ -261,7 +261,7 @@ python train.py --stage 2 \
 
 **3. 在 tmux 中运行（推荐）**
 
-编辑 `start_train_tmux.sh`：设置 `CUDA_VISIBLE_DEVICES`、`parquet_dir`、`video_root`，然后：
+编辑 `start_train_tmux.sh`，设置 `CUDA_VISIBLE_DEVICES`、`parquet_dir`、`video_root`，然后：
 
 ```bash
 chmod +x start_train_tmux.sh && ./start_train_tmux.sh
@@ -298,4 +298,4 @@ python eval_test.py \
 
 ### 许可
 
-请按所属机构规定使用与许可（如仅限研究、非商用）。若再分发权重，请遵守 SigLIP、Gemma 等模型的许可条款。
+许可依本仓库及基础模型（SigLIP、Gemma）的规定；再分发权重时请遵守相应模型许可（如仅限研究、非商用等）。
