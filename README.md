@@ -8,6 +8,8 @@
 
 ## English
 
+**Important:** **Pi 0.6 is closed source** (not open source). This repository is an **internal reproduction** of the value-function part: the model (SigLIP + Gemma + Projector + Value head, etc.) is **our own implementation** and is **not open source**. This repo is **not intended for public release on GitHub**; it is for internal or research use only.
+
 A lightweight **Value Function (VF)** implementation for advantage-conditioned robot policy learning, following the methodology of **Pi** (e.g. π₀.6): train a VF to score trajectories, then use high-advantage (positive) data only for policy fine-tuning.
 
 This repo focuses on the **VF part**: a small multimodal model that predicts a **201-bin discrete value distribution** (time-to-go style) from robot-view images and task instructions. It is designed to work with **LeRobot-style** data and can be used as the critic in a RECAP / Advantage Conditioning pipeline.
@@ -141,21 +143,23 @@ Random guess baseline: Top-1 ≈ 1/201 ≈ 0.5%, so the stitched VF clearly lear
 
 ### References and acknowledgments
 
-- **Pi (π)** and **RECAP / Advantage Conditioning**: value functions for filtering high-advantage data and conditioning the policy.
-- **OpenVLA / Pi0**: open-weight VLA policy used in the full pipeline (this repo only implements the VF).
-- **SigLIP**, **Gemma**: vision and language models (Hugging Face).
+- **Pi (π) 0.6** is **closed source** (not open source). RECAP / Advantage Conditioning: value functions for filtering high-advantage data and conditioning the policy.
+- **OpenVLA**: open-weight VLA; the full Pi 0.6 pipeline is closed source. This repo only implements the VF part as our own reproduction.
+- **SigLIP**, **Gemma**: vision and language models (Hugging Face); used here as components in **our implementation**, which is not open source.
 
-This project is a **reproduction** of the value-function part of the pipeline; the full system (policy + simulation/real robot) is not included here. Collaboration with lab members; **robot and real-world data are not distributed with this repository.**
+This project is an **internal reproduction** of the value-function part; the full system (policy + simulation/real robot) is not included. **This repository and its model (SigLIP + Gemma + Projector, etc.) are not open source and should not be published publicly on GitHub.** Robot and real-world data are not distributed.
 
 ### License
 
-License terms follow the base models (SigLIP, Gemma) and your institution’s policy (e.g. research-only, non-commercial). Check model licenses when redistributing weights.
+**This project is not open source.** It is for internal or research use only. Do not publish, redistribute, or display on public GitHub without permission. Base components (SigLIP, Gemma) have their own licenses; our implementation and pipeline are proprietary.
 
 ---
 
 <a name="中文"></a>
 
 ## 中文
+
+**重要说明：** **π₀.6 为闭源**（非开源）。本仓库为其价值函数部分的 **内部复现**：其中模型（SigLIP、Gemma、Projector、Value head 等）为 **我们自行实现**，**不对外开源**。本仓库 **不拟在 GitHub 上公开发布**，仅供内部或研究使用。
 
 本仓库为 **优势条件策略**（如 π₀.6）所用的轻量级 **价值函数 (VF)** 实现：先训练 VF 对轨迹打分，再仅用高优势（正样本）数据做策略微调。
 
@@ -290,12 +294,12 @@ python eval_test.py \
 
 ### 参考文献与致谢
 
-- **Pi (π)** 与 **RECAP / 优势条件**：用价值函数筛选高优势数据并条件化策略。
-- **OpenVLA / Pi0**：完整流程中使用的开源 VLA 策略（本仓库仅实现 VF）。
-- **SigLIP**、**Gemma**：视觉与语言模型（Hugging Face）。
+- **Pi (π) 0.6** 为 **闭源**（非开源）。RECAP / 优势条件：用价值函数筛选高优势数据并条件化策略。
+- **OpenVLA**：开源 VLA；完整 π₀.6 流程为闭源。本仓库仅实现 VF 部分，为我们自行复现。
+- **SigLIP**、**Gemma**：视觉与语言模型（Hugging Face）；在本实现中作为组件使用，**本实现不对外开源**。
 
-本项目为流程中 **价值函数部分** 的复现；完整系统（策略 + 仿真/真机）不在此仓库。与实验室成员合作；**机器人及真实场景数据不随本仓库分发。**
+本项目为 **内部复现** 的价值函数部分；完整系统（策略 + 仿真/真机）不在此仓库。**本仓库及其模型（SigLIP、Gemma、Projector 等）均未开源，不应在 GitHub 上公开发布。** 机器人及真实场景数据不随仓库提供。
 
 ### 许可
 
-许可依本仓库及基础模型（SigLIP、Gemma）的规定；再分发权重时请遵守相应模型许可（如仅限研究、非商用等）。
+**本项目未开源。** 仅供内部或研究使用。未经许可请勿公开发布、再分发或在 GitHub 上公开展示。基础组件（SigLIP、Gemma）各有其许可；本实现及流程为自有/闭源。
