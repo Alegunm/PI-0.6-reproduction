@@ -8,7 +8,7 @@
 
 ## English
 
-This document lists what is included in this repository and what is not distributed. **This repository is not open source** (Pi 0.6 is closed source; our model implementation is proprietary). **It is not intended for public release on GitHub**; for internal or research use only.
+This document lists what is included in this repository and what is not distributed. **Pi 0.6 is closed source**; this repo is **our own reproduction** and **can be published on GitHub** for others to view (code, docs, results).
 
 ### ✅ Contents of this repository
 
@@ -60,7 +60,7 @@ This repository contains **code, documentation, and architecture figures** only.
 
 ## 中文
 
-本文档说明本仓库包含哪些内容、哪些内容不随仓库提供。**本仓库未开源**（π₀.6 为闭源；本实现为自有/闭源）。**不拟在 GitHub 上公开发布**，仅供内部或研究使用。
+本文档说明本仓库包含哪些内容、哪些内容不随仓库提供。**π₀.6 为闭源**；本仓库为 **我们自行复现**，**可发布在 GitHub 上**供他人查看（代码、文档、结果）。
 
 ### ✅ 本仓库包含的内容
 
